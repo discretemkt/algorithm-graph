@@ -1,7 +1,5 @@
 package mkt.graph;
 
-import java.util.Set;
-
 /**
  * 
  * @param <V>
@@ -10,7 +8,9 @@ import java.util.Set;
  */
 public interface Edge<V> {
     
-    public Set<V> getEndpoints();
+    public Pair<V> getEndpoints();
+    
+    public boolean isDirected();
     
     public void setWeight(double weight) throws IllegalArgumentException;
     

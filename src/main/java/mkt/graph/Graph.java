@@ -10,9 +10,11 @@ import java.util.Set;
  */
 public interface Graph<V> {
     
-    public void add(V node) throws IllegalArgumentException;
+    public void add(V vertex) throws IllegalArgumentException;
     
-    public Edge<V> connect(V node1, V node2) throws IllegalArgumentException;
+    public Edge<V> connect(V vertex1, V vertex2) throws IllegalArgumentException;
+    
+    public Edge<V> connect(V vertex1, V vertex2, boolean directed) throws IllegalArgumentException;
     
     public Set<V> getVertices();
     

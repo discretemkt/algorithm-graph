@@ -1,9 +1,7 @@
 package mkt.graph.impl;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import mkt.graph.Edge;
+import mkt.graph.Pair;
 
 /**
  * 
@@ -13,29 +11,58 @@ import mkt.graph.Edge;
  */
 class EdgeImpl<V> implements Edge<V> {
     
-    private final Set<V> endpoints;
+    private static class EndpointPair<V> implements Pair<V> {
+        
+        private final V vertex1;
+        private final V vertex2;
+        
+        public EndpointPair(V vertex1, V vertex2) {
+            assert vertex1 != null && vertex2 != null;
+            this.vertex1 = vertex1;
+            this.vertex2 = vertex2;
+        }
+        
+        @Override
+        public V getFirst() {
+            return vertex1;
+        }
+        
+        @Override
+        public V getSecond() {
+            return vertex2;
+        }
+        
+    }
+    
+    private final V vertex1;
+    private final V vertex2;
+    private final boolean directed;
     
     private Double weight;
     
-    public EdgeImpl(V endpoint1, V endpoint2) throws IllegalArgumentException {
-        if (endpoint1 == null || endpoint2 == null) {
-            throw new IllegalArgumentException("Endpoints must not be null.");
+    public EdgeImpl(V vertex1, V vertex2, boolean directed) throws IllegalArgumentException {
+        if (vertex1 == null || vertex2 == null) {
+            throw new IllegalArgumentException();
         }
-        Set<V> es = new HashSet<>();
-        es.add(endpoint1);
-        es.add(endpoint2);
-        endpoints = Collections.unmodifiableSet(es);
+        this.vertex1 = vertex1;
+        this.vertex2 = vertex2;
+        this.directed = directed;
     }
     
     @Override
-    public Set<V> getEndpoints() {
-        return endpoints;
+    public Pair<V> getEndpoints() {
+        return new EndpointPair(vertex1, vertex2);
+    }
+    
+    @Override
+    public boolean isDirected() {
+        return directed;
     }
     
     @Override
     public void setWeight(double weight) throws IllegalArgumentException {
         if (Double.valueOf(weight).equals(Double.NaN)) {
-            throw new IllegalArgumentException("Weight must not be NaN.");
+            throw new IllegalArgumentException();
         }
         this.weight = weight;
     }
@@ -53,7 +80,7 @@ class EdgeImpl<V> implements Edge<V> {
     @Override
     public double getWeight() throws IllegalStateException {
         if (weight == null) {
-            throw new IllegalStateException("This Edge object currently represents an unweighted edge.");
+            throw new IllegalStateException();
         }
         return weight;
     }

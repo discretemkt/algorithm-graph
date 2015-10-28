@@ -9,7 +9,7 @@ import mkt.graph.Graph;
  */
 public class PrimsAlgorithm {
     
-    public static <V> Graph<V> findMinimumSpanningTree(Graph<V> graph, V root) throws IllegalArgumentException {
+    public static <V> Graph<V> findMinimumSpanningTree(Graph<V> graph, V root) throws IllegalArgumentException, IllegalStateException, GraphNotConnectedException {
         
         
         
