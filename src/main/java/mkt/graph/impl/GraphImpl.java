@@ -11,10 +11,12 @@ import mkt.graph.Graph;
  * @since 0.0.1
  * @author mkt
  */
-public class GraphImpl<V> implements Graph<V> {
+class GraphImpl<V> implements Graph<V> {
     
     private final Set<V> vertices = new HashSet<>();
     private final Set<Edge<V>> edges = new HashSet<>();
+    
+    public GraphImpl() {}
     
     @Override
     public void add(V vertex) throws IllegalArgumentException {
